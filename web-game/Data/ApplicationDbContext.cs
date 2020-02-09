@@ -12,9 +12,9 @@ namespace web_game.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        
-        public DbSet<Match> Matches { get; set; }
-        public DbSet<Game> Games { get; set; }
+
+        public DbSet<Match> Matches { get; set; } = null!;
+        public DbSet<Game> Games { get; set; } = null!;
         
         public ApplicationDbContext(
             DbContextOptions options,

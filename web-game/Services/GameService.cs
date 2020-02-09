@@ -5,17 +5,17 @@ using web_game.Repositories;
 
 namespace web_game.Services
 {
-    public class GameService: IGameService
+    public class GameService : IGameService
     {
-        private readonly IRepository<Game> _repository;
         private readonly IMatchesService _matchesService;
+        private readonly IRepository<Game> _repository;
 
         public GameService(IRepository<Game> repository, IMatchesService matchesService)
         {
             _repository = repository;
             _matchesService = matchesService;
         }
-        
+
         public async Task<bool> HasUserSubmitted(string userId)
         {
             var currentMatch = await _matchesService.GetCurrentMatch();

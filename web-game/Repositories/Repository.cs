@@ -14,9 +14,9 @@ namespace web_game.Repositories
 
         public Repository(ApplicationDbContext context)
         {
-            _context = context;          
+            _context = context;
         }
-        
+
         public async Task<T> GetByIdAsync(Guid id)
         {
             return await _context.Set<T>().FindAsync(id);
@@ -26,7 +26,7 @@ namespace web_game.Repositories
         {
             return await _context.Set<T>().ToListAsync();
         }
-        
+
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
             return await _context.Set<T>().Where(predicate).ToListAsync();
