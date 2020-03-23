@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using web_game.Data;
 using web_game.Models;
+using web_game.Repositories;
 using web_game.Services;
 
 namespace web_game
@@ -33,14 +34,20 @@ namespace web_game
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+            services.AddScoped<IMatchRepository, MatchRepository>();
             services.AddTransient<IMatchesService, MatchesService>();
+            services.AddTransient<IGameService, GameService>();
+            
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+
+            services.AddControllers();
+            // services.AddControllersWithViews();
+            // services.AddRazorPages();
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+            // services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,9 +66,7 @@ namespace web_game
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            if (!env.IsDevelopment()) app.UseSpaStaticFiles();
-
+            
             app.UseRouting();
 
             app.UseAuthentication();
@@ -75,15 +80,6 @@ namespace web_game
                 endpoints.MapRazorPages();
             });
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment()) spa.UseAngularCliServer("start");
-            });
         }
     }
 }
