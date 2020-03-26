@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using web_game.Models;
@@ -7,8 +8,9 @@ using web_game.Services;
 
 namespace web_game.Controllers
 {
-    [Route("api/game")]
+    [Route("api")]
     [ApiController]
+    // [Authorize]
     public class GameController : ControllerBase
     {
         private readonly IMatchesService _matchesService;
@@ -26,39 +28,18 @@ namespace web_game.Controllers
             var match = _matchesService.GetCurrentMatch();
             return Ok(match);
         }
-        //
-        // [HttpGet]
-        // public IActionResult GetRandomNumber()
-        // {
-        //     var randomNumber = new Random().Next(0, 100);
-        //     return Ok(new {randomNumber});
-        // }
-        //
-        // [HttpPost]
-        // public async Task<IActionResult> Submit([FromBody] SubmitViewModel submitted)
-        // {
-        //     var user = await GetCurrentUserAsync();
-        //
-        //     if (await _gameService.HasUserSubmitted(user.Id))
-        //         return BadRequest();
-        //
-        //
-        //     var match = await _matchesService.GetCurrentMatch();
-        //
-        //     var game = new Game
-        //     {
-        //         MatchId = match.Id,
-        //         UserId = user.Id,
-        //         Number = submitted.Number
-        //     };
-        //
-        //     _gameService.SubmitGame(game);
-        //     return Ok();
-        // }
-
-        private Task<ApplicationUser> GetCurrentUserAsync()
+        
+        [HttpGet("getNumber")]
+        public async Task<IActionResult> GetRandomNumber()
         {
-            return _userManager.GetUserAsync(HttpContext.User);
+            var user = await GetCurrentUserAsync();
+            var randomNumber = _matchesService.GetRandomNumberForUser(Guid.Parse(user.Id));
+            return Ok(new {randomNumber});
+        }
+
+        private async Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            return await _userManager.GetUserAsync(HttpContext.User);
         }
     }
 }

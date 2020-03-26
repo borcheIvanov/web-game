@@ -10,6 +10,6 @@ namespace web_game.Models
         public Guid MatchId { get; set; }
         public Guid UserId { get; set; } = Guid.Empty;
         public int Number { get; set; }
-        public Match Match { get; set; }
+        public Match Match { get; set; } = null!;
     }
 }
