@@ -6,7 +6,8 @@ namespace web_game.Services
 {
     public interface IMatchesService
     {
-        Task<Match> GetCurrentMatch();
-        
+        Match GetCurrentMatch();
+        int GetRandomNumberForUser(Guid newGuid);
+        Task<Game> Submit(Guid userId);
     }
 }

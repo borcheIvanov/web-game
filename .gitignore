@@ -1,3 +1,11 @@
 bin/
 obj/
 /packages/
+.idea/*
+.idea/.idea.web-game/.idea/contentModel.xml
+.idea/.idea.web-game/.idea/contentModel.xml
+.idea/.idea.web-game/riderModule.iml
+.idea/.idea.web-game/.idea/contentModel.xml
+.idea/.idea.web-game/.idea/contentModel.xml
+.idea/.idea.web-game/riderModule.iml
+web-game/mono_crash.mem.*.blob

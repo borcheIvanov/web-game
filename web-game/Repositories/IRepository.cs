@@ -15,6 +15,5 @@ namespace web_game.Repositories
         Task<T> Update(T entity);
 
         void Remove(T entity);
-        
     }
 }
