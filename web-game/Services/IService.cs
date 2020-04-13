@@ -8,6 +8,6 @@ namespace web_game.Services
     {
         Match GetCurrentMatch();
         int GetRandomNumberForUser(Guid newGuid);
-        Task<Game> Submit(Guid userId);
+        Game Submit(Guid userId);
     }
 }

@@ -10,15 +10,13 @@ namespace web_game.tests
 {
     public class ServiceTests
     {
-        private readonly IRepository<Game> _gameRepository;
+        private readonly IRepository _gameRepository;
         private readonly IMatchesService _service;
 
         public ServiceTests()
         {
-            _gameRepository = A.Fake<IRepository<Game>>();
-            var matchRepository = A.Fake<IMatchRepository>();
-
-            _service = new MatchesService(matchRepository, _gameRepository);
+            _gameRepository = A.Fake<IRepository>();
+            _service = new MatchesService(_gameRepository);
         }
 
         [SetUp]
@@ -144,7 +142,7 @@ namespace web_game.tests
 
             try
             {
-                _service.Submit(userId).GetAwaiter().GetResult();
+                _service.Submit(userId);
             }
             catch (Exception e)
             {
@@ -168,7 +166,7 @@ namespace web_game.tests
 
             try
             {
-                _service.Submit(userId).GetAwaiter().GetResult();
+                _service.Submit(userId);
             }
             catch (Exception e)
             {

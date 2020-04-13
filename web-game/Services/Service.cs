@@ -13,12 +13,11 @@ namespace web_game.Services
         private static readonly Dictionary<Guid, KeyValuePair<Guid, int>> GeneratedNumbers =
             new Dictionary<Guid, KeyValuePair<Guid, int>>();
 
-        private readonly IMatchRepository _repository;
-        private readonly IRepository<Game> _gameRepository;
+   
+        private readonly IRepository _gameRepository;
 
-        public MatchesService(IMatchRepository repository, IRepository<Game> gameRepository)
+        public MatchesService(IRepository gameRepository)
         {
-            _repository = repository;
             _gameRepository = gameRepository;
         }
 
@@ -33,7 +32,7 @@ namespace web_game.Services
             return _currentMatch;
         }
 
-        public async Task<Game> Submit(Guid userId)
+        public Game Submit(Guid userId)
         {
             if (!GeneratedNumbers.TryGetValue(userId, out _))
             {
@@ -54,7 +53,7 @@ namespace web_game.Services
                 Match = _currentMatch
             };
             
-            return await _gameRepository.Add(game);
+            return _gameRepository.Add(game);
         }
 
         private static bool ThereIsMatchAvailable()

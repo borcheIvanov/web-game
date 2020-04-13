@@ -45,8 +45,7 @@ namespace web_game
                 });
 
 
-            services.AddScoped<IMatchRepository, MatchRepository>();
-            services.AddScoped<IRepository<Game>, Repository<Game>>();
+            services.AddScoped<IRepository, Repository>();
             services.AddTransient<IMatchesService, MatchesService>();
 
             services.AddOpenApiDocument((options, s) =>
