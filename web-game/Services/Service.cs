@@ -6,7 +6,7 @@ using web_game.Repositories;
 
 namespace web_game.Services
 {
-    public class MatchesService : IMatchesService
+    public class Service : IService
     {
         private static Match _currentMatch = new Match();
 
@@ -16,7 +16,7 @@ namespace web_game.Services
    
         private readonly IRepository _gameRepository;
 
-        public MatchesService(IRepository gameRepository)
+        public Service(IRepository gameRepository)
         {
             _gameRepository = gameRepository;
         }
@@ -54,6 +54,11 @@ namespace web_game.Services
             };
             
             return _gameRepository.Add(game);
+        }
+
+        public List<Game> GetLastWinners()
+        {
+            return _gameRepository.GetLastWinners();
         }
 
         private static bool ThereIsMatchAvailable()
