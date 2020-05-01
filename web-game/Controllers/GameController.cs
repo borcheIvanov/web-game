@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using web_game.Models;
 using web_game.Services;
+using web_game.Identity;
 
 namespace web_game.Controllers {
     [Route ("api")]
@@ -29,13 +30,24 @@ namespace web_game.Controllers {
         [SwaggerResponse (StatusCodes.Status200OK, typeof (int), Description = "Returns random number")]
         [SwaggerResponse (StatusCodes.Status401Unauthorized, null, Description = "If the user is unauthorized")]
         [HttpGet ("getNumber")]
-        public IActionResult GetRandomNumber () {
-            var user = User.Identity;
-            // var randomNumber = _service.GetRandomNumberForUser(Guid.Parse(user.Id));
-            var randomNumber = _service.GetRandomNumberForUser (Guid.NewGuid ());
+        public IActionResult GetRandomNumber () {            
+            var randomNumber = _service.GetRandomNumberForUser (User.Identity.GetEmail());
             return Ok (new { randomNumber });
         }
 
+        [SwaggerResponse (StatusCodes.Status200OK, typeof (int), Description = "User submits the generated number to the match")]
+        [SwaggerResponse (StatusCodes.Status401Unauthorized, null, Description = "If the user is unauthorized")]
+        [HttpGet("submit")]
+        public IActionResult Submit() {
+            var submittedGame = _service.Submit(User.Identity.GetEmail(), User.Identity.GetName());
+            return Ok(submittedGame);
+        }
+
+        [AllowAnonymous]
+        [SwaggerResponse (StatusCodes.Status200OK, typeof (List<Game>), Description = "Returns last winners")]
+        [HttpGet ("winners")]
+        public ActionResult<IEnumerable<Game>> GetLastWinners () {
+            return Ok(_service.GetLastWinners ());
         }
 
     }
