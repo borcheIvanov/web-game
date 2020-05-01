@@ -1,13 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using web_game.Models;
 
 namespace web_game.Services
 {
-    public interface IMatchesService
+    public interface IService
     {
         Match GetCurrentMatch();
-        int GetRandomNumberForUser(Guid newGuid);
-        Game Submit(Guid userId);
+        int GetRandomNumberForUser(string userId);
+        Game Submit(string userId, string name);
+        IEnumerable<Game> GetLastWinners();
     }
 }

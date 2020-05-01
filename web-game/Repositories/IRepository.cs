@@ -9,5 +9,7 @@ namespace web_game.Repositories
     public interface IRepository
     {
         Game Add(Game entity);
+        IEnumerable<Game> GetLastWinners();
+        IEnumerable<Game> GetAll(Func<Game, bool> predicate);
     }
 }

@@ -187,7 +187,7 @@ namespace web_game.tests
             _service.Submit(user2Id, "name2");
             match.ExpireTime = DateTime.Now;
 
-            var winners = _service.GetLastWinners();
+            var winners = _service.GetLastWinners().ToList();
 
             winners.Should().BeOfType<List<Game>>();
             winners.Count.Should().Be(2);
