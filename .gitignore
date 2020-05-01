@@ -9,3 +9,4 @@ obj/
 .idea/.idea.web-game/.idea/contentModel.xml
 .idea/.idea.web-game/riderModule.iml
 web-game/mono_crash.mem.*.blob
+.vscode
