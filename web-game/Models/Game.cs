@@ -21,7 +21,11 @@ namespace web_game.Models
         /// <summary>
         /// The id of the user that submitted to a specific game
         /// </summary>
-        public Guid UserId { get; set; } = Guid.Empty;
+        public string  UserId { get; set; } = string.Empty;
+        /// <summary>
+        /// Name of the user that submitted to a specific game
+        /// </summary>
+        public string  UserName { get; set; } = string.Empty;
         /// <summary>
         /// The number submitted by the User 
         /// </summary>
